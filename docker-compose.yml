@@ -36,20 +36,6 @@ services:
       PYTHONPATH: /data
     depends_on:
       - redis
-  beat:
-    build: ./
-    entrypoint: celery
-    command: -A tasks beat -l info
-    user: nobody
-    volumes:
-      - ./examples:/data
-    environment:
-      CELERY_BROKER_URL: redis://redis
-      CELERY_RESULT_BACKEND: redis://redis
-      PYTHONPATH: /data
-    depends_on:
-      - redis
-      - worker
   flower:
     build: ./
     command: celery -A tasks flower
